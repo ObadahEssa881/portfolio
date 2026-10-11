@@ -1,0 +1,265 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+ * One world, not a light/dark pair: a machine room at night.
+ *
+ * Steel-black ground, bone text, and copper — the colour of a request in
+ * flight. The unexpected hue is "ok" green (~10%): it only ever marks something
+ * that is healthy, live or answered. Fail red appears once, when a node dies.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-utility), ui-monospace, monospace;
+  --font-display: var(--font-disp), var(--font-ui), sans-serif;
+
+  --color-void: var(--void);
+  --color-plate: var(--plate);
+  --color-line: var(--line);
+  --color-bone: var(--bone);
+  --color-dim: var(--dim);
+  --color-copper: var(--copper);
+  --color-ok: var(--ok);
+  --color-fail: var(--fail);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --void: #090b0c;
+  --plate: #111518;
+  --line: #242b2f;
+  --bone: #ece7de;
+  --dim: #929a96;
+  --copper: #e08a4f;
+  --ok: #6fe3a8;
+  --fail: #ff5d52;
+  /* Tenants only appear in the tenancy chapter. */
+  --tenant-b: #9db7c8;
+
+  --background: var(--void);
+  --foreground: var(--bone);
+  --card: var(--plate);
+  --card-foreground: var(--bone);
+  --primary: var(--copper);
+  --primary-foreground: #160b04;
+  --secondary: #1a2024;
+  --secondary-foreground: var(--bone);
+  --muted: #161b1e;
+  --muted-foreground: var(--dim);
+  --accent: #1d2428;
+  --accent-foreground: var(--bone);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--copper);
+  --radius: 0.7rem;
+
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 5rem;
+  }
+  /* Lenis drives the scroll when motion is on; native smooth scroll would fight it. */
+  html:not([data-motion="full"]) {
+    scroll-behavior: smooth;
+  }
+  html[data-motion="off"] {
+    scroll-behavior: auto;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    overflow-x: clip;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    font-weight: 600;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--copper);
+    color: #160b04;
+  }
+}
+
+@layer utilities {
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  .wrap-x {
+    width: 100%;
+    max-width: 1320px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+}
+
+/* ---- motion: everything below only ever runs when html[data-motion] allows -- */
+
+/* The hero's entrance is pure CSS, so it completes even if a script fails. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+@keyframes letter {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em) rotate(4deg);
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--ok) 0%, transparent);
+  }
+}
+
+html:not([data-motion="off"]) .intro {
+  animation: rise 1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 150ms);
+}
+html:not([data-motion="off"]) .intro-letter {
+  display: inline-block;
+  animation: letter 1.1s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 35ms + 100ms);
+}
+html:not([data-motion="off"]) .caret {
+  animation: blink 1.1s steps(1) infinite;
+}
+html:not([data-motion="off"]) .live-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+/* Film grain: one inline SVG turbulence, stepped so it shimmers like film. */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-3%, 2%); }
+  50% { transform: translate(2%, -3%); }
+  75% { transform: translate(-1%, 3%); }
+}
+.grain {
+  position: fixed;
+  inset: -10%;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+html[data-motion="full"] .grain {
+  animation: grain 0.9s steps(4) infinite;
+}
+
+/* ---- the 3D stage and its stills -------------------------------------------- */
+
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.stage canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+/* Live scene on: stills are not needed (and, being lazy, never download). */
+html[data-motion="full"]:not([data-webgl="fail"]) .still {
+  display: none;
+}
+html[data-motion="full"]:not([data-webgl="fail"]) .hero-still {
+  display: none;
+}
+/* Scene labels follow their node; they are decoration, the copy says it all. */
+.scene-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--bone);
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--void) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--bone) 14%, transparent);
+  transition: opacity 0.35s ease;
+  will-change: transform, opacity;
+}
+.scene-label[data-tone="ok"] {
+  color: var(--ok);
+}
+.scene-label[data-tone="fail"] {
+  color: var(--fail);
+  border-color: color-mix(in srgb, var(--fail) 45%, transparent);
+}
+.scene-label[data-tone="copper"] {
+  color: var(--copper);
+}
+
+/* Without the live scene, the chapters are not a flight: they close up into
+   an ordinary column, each with its still frame. */
+html:not([data-motion="full"]) [data-chapter],
+html[data-webgl="fail"] [data-chapter] {
+  min-height: 0;
+  padding-block: 2.5rem;
+}
+html:not([data-motion="full"]) [data-chapter] > div,
+html[data-webgl="fail"] [data-chapter] > div {
+  position: static;
+  padding-top: 0;
+}
