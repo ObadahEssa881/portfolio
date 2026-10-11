@@ -11,7 +11,7 @@ export function Contact() {
       <div className="wrap-x relative">
         <pre data-reveal className="font-mono text-[0.75rem] leading-relaxed text-dim">
           <span className="text-ok">HTTP/1.1 200 OK</span>
-          {"\n"}content-type: engineer/backend{"\n"}x-location: {person.location} (remote){"\n"}x-languages: ar, en{"\n"}x-served-by:{" "}
+          {"\n"}content-type: engineer/full-stack{"\n"}x-location: {person.location} (remote){"\n"}x-languages: ar, en{"\n"}x-served-by:{" "}
           <span className="text-bone/90">{person.name}</span>
         </pre>
         <h2 id="contact-title" data-reveal="1" className="mt-8 max-w-[16ch] text-[clamp(2.6rem,7vw,6rem)] leading-[0.98] tracking-[-0.03em]">

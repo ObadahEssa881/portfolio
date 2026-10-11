@@ -38,7 +38,7 @@ export default async function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 132, fontWeight: 700, letterSpacing: -5, lineHeight: 0.9 }}>{person.first}</div>
           <div style={{ fontSize: 132, fontWeight: 700, letterSpacing: -5, lineHeight: 0.9, color: "#e08a4f" }}>{person.last}</div>
-          <div style={{ marginTop: 34, fontSize: 36, color: "#ece7de" }}>{`${person.role} — Node.js · NestJS · TypeScript`}</div>
+          <div style={{ marginTop: 34, fontSize: 36, color: "#ece7de" }}>{person.role}</div>
         </div>
         <div style={{ display: "flex", gap: 18, fontSize: 24, color: "#929a96", fontFamily: "monospace" }}>
           <span style={{ color: "#6fe3a8" }}>200 OK</span>

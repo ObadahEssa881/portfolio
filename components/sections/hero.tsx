@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import { ArrowDown, FileText, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -31,8 +32,15 @@ export function Hero() {
         <Name lines={[person.first, person.last]} />
 
         <p className="intro mt-7 font-display text-[clamp(1.25rem,2.2vw,1.65rem)] font-medium text-bone" style={{ ["--i" as string]: 3 }}>
-          {person.role}
-          <span className="text-dim"> — Node.js, NestJS, TypeScript</span>
+          {/* On a phone each half of the title gets its own line, never broken mid-phrase. */}
+          {person.role.split(" | ").map((part, i) => (
+            <Fragment key={part}>
+              {i > 0 && <span className="text-dim max-sm:sr-only"> | </span>}
+              <span className="max-sm:block">{part}</span>
+            </Fragment>
+          ))}
+          <span className="text-dim max-sm:hidden"> — </span>
+          <span className="text-dim max-sm:mt-1 max-sm:block max-sm:text-[0.8em]">Node.js, NestJS, TypeScript</span>
         </p>
         <p className="intro mt-4 max-w-[36rem] text-[1.05rem] leading-relaxed text-dim" style={{ ["--i" as string]: 4 }}>
           I build the part of a product nobody sees: queues that absorb slow providers, clusters that survive a dead node, and tenants

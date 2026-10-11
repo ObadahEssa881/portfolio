@@ -1,7 +1,7 @@
 /**
  * Everything the page says about Obadah, in one place.
  *
- * Taken from the CV (Obadah_AboEssa_Backend_Engineer_CV_2026). Dates, numbers
+ * Taken from the CV (public/Obadah_AboEssa_Software_Engineer_CV.pdf). Dates, numbers
  * and claims are the CV's own; nothing here is rounded up. Edit this file to
  * change the copy — the components only lay it out.
  */
@@ -10,14 +10,14 @@ export const person = {
   name: "Obadah AboEssa",
   first: "Obadah",
   last: "AboEssa",
-  role: "Backend Software Engineer",
+  role: "Software Engineer | AI Full Stack Developer",
   location: "Damascus, Syria",
   email: "obadahesa881@gmail.com",
   github: "https://github.com/ObadahEssa881",
   githubHandle: "ObadahEssa881",
   linkedin: "https://www.linkedin.com/in/obadah-abo-essa",
   linkedinHandle: "obadah-abo-essa",
-  cv: "/Obadah_AboEssa_Backend_Engineer_CV.pdf",
+  cv: "/Obadah_AboEssa_Software_Engineer_CV.pdf",
   languages: [
     { name: "Arabic", level: "Native" },
     { name: "English", level: "Fluent (professional working proficiency)" },

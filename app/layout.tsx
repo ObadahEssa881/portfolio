@@ -10,7 +10,7 @@ import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const description =
-  "Backend engineer in Node.js, NestJS and TypeScript: queue-driven integrations, Redis Sentinel failover, multi-tenant SaaS, OAuth 2.0 and passkeys. Damascus, Syria — remote.";
+  "Software engineer and AI full-stack developer — Node.js, NestJS and TypeScript: queue-driven integrations, Redis Sentinel failover, multi-tenant SaaS, OAuth 2.0 and passkeys. Damascus, Syria — remote.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
