@@ -239,14 +239,46 @@ export const trace: TraceSpan[] = [
 
 /* ---- things you can open -------------------------------------------------- */
 
-export const beautyStore = {
+export interface LiveProject {
+  title: string;
+  kicker: string;
+  live: string;
+  source: string;
+  body: string;
+  stack: string[];
+  /** A 16:10 screenshot of the home page, and the colour behind it while it loads. */
+  shot: { src: string; alt: string; bg: string };
+}
+
+export const watchAtelier: LiveProject = {
+  title: "Watch Atelier",
+  kicker: "Live demo · full-stack concept",
+  live: "https://watch-atelier-a2vq.vercel.app",
+  source: "https://github.com/ObadahEssa881/watch-atelier",
+  body: "A fictional watch maison whose mechanical watch is built entirely in three.js. Scrolling takes the movement apart layer by layer — caseback, rotor, going train, escapement, balance — each explained with real horology, while it beats eight times a second. A NestJS API prices every build in the configurator; the finishes are generated in a Web Worker and cached in the browser.",
+  stack: ["Next.js 16", "React 19", "TypeScript", "three.js r186", "GSAP", "Lenis", "Tailwind v4", "shadcn/ui", "NestJS 11", "Web Workers", "IndexedDB"],
+  shot: {
+    src: "/work/watch-atelier.jpg",
+    alt: "The Qasioun home page: the headline “Eight beats a second.” beside a steel watch with a black sunburst dial",
+    bg: "#0b0908",
+  },
+};
+
+export const beautyStore: LiveProject = {
   title: "Beauty Store",
   kicker: "Live demo · storefront concept",
   live: "https://beauty-store-lac.vercel.app",
   source: "https://github.com/ObadahEssa881/beauty-store",
   body: "A premium beauty storefront for the Syrian market, Arabic first with English one tap away. A lipstick modelled in three.js uncaps as you scroll and draws one red line through the page; a mirror lets you try a shade on your own skin; every product shows its batch, origin and expiry.",
   stack: ["Next.js 16", "React 19", "TypeScript", "three.js r186", "GSAP", "Lenis", "Tailwind v4", "shadcn/ui", "Zustand"],
+  shot: {
+    src: "/work/beauty-store.jpg",
+    alt: "The Beauty Store home page: the headline “Real beauty, from the source.” beside an uncapped red lipstick among rose petals",
+    bg: "#140b0e",
+  },
 };
+
+export const liveProjects: LiveProject[] = [watchAtelier, beautyStore];
 
 export interface Repo {
   name: string;

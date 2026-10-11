@@ -3,7 +3,8 @@ import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GitHubIcon } from "@/components/site/brand-icons";
-import { beautyStore, person, repos } from "@/lib/content";
+import { liveProjects, person, repos } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 const LANG: Record<string, string> = { TypeScript: "bg-[#3178c6]", Java: "bg-[#e08a4f]", PHP: "bg-[#8892bf]" };
 
@@ -16,57 +17,67 @@ export function Work() {
           Don&rsquo;t take the trace&rsquo;s word for it.
         </h2>
         <p data-reveal="2" className="mt-5 max-w-[40rem] text-[1.05rem] leading-relaxed text-dim">
-          The Kasroad systems are private. These are not: a live front end, and the public repositories behind the trace.
+          The Kasroad systems are private. These are not: two live sites, and the public repositories behind the trace.
         </p>
 
-        {/* the live one */}
-        <article data-reveal className="group mt-14 grid overflow-hidden rounded-2xl border border-line bg-plate lg:grid-cols-[1.25fr_1fr]">
-          <a
-            href={beautyStore.live}
-            target="_blank"
-            rel="noreferrer"
-            className="relative block aspect-[16/10] overflow-hidden border-b border-line bg-[#140b0e] lg:aspect-auto lg:min-h-[26rem] lg:border-e lg:border-b-0"
-            aria-label="Open the Beauty Store live site"
+        {/* the live ones, the picture swapping sides from one to the next */}
+        {liveProjects.map((p, i) => (
+          <article
+            key={p.title}
+            data-reveal
+            className={cn("group grid overflow-hidden rounded-2xl border border-line bg-plate", i === 0 ? "mt-14" : "mt-6", i % 2 ? "lg:grid-cols-[1fr_1.25fr]" : "lg:grid-cols-[1.25fr_1fr]")}
           >
-            <Image
-              src="/work/beauty-store.jpg"
-              alt="The Beauty Store home page: the headline “Real beauty, from the source.” beside an uncapped red lipstick among rose petals"
-              fill
-              sizes="(min-width: 1024px) 60vw, 100vw"
-              className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-            <span className="absolute top-4 left-4 flex items-center gap-2 rounded-md border border-line bg-void/80 px-2.5 py-1 font-mono text-[0.68rem] text-bone backdrop-blur">
-              <span className="live-dot size-1.5 rounded-full bg-ok" />
-              live · vercel
-            </span>
-          </a>
-          <div className="flex flex-col p-6 md:p-8">
-            <p className="eyebrow text-dim">{beautyStore.kicker}</p>
-            <h3 className="mt-3 text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.05] tracking-[-0.015em]">{beautyStore.title}</h3>
-            <p className="mt-4 leading-relaxed text-bone/80">{beautyStore.body}</p>
-            <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Stack">
-              {beautyStore.stack.map((t) => (
-                <li key={t}>
-                  <Badge>{t}</Badge>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-auto flex flex-wrap gap-3 pt-7">
-              <Button asChild>
-                <a href={beautyStore.live} target="_blank" rel="noreferrer">
-                  Open the live site
-                  <ArrowUpRight />
-                </a>
-              </Button>
-              <Button asChild variant="outline">
-                <a href={beautyStore.source} target="_blank" rel="noreferrer">
-                  <GitHubIcon />
-                  Source
-                </a>
-              </Button>
+            <a
+              href={p.live}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(
+                "relative block aspect-[16/10] overflow-hidden border-b border-line lg:aspect-auto lg:min-h-[26rem] lg:border-b-0",
+                i % 2 ? "lg:order-last lg:border-s" : "lg:border-e",
+              )}
+              style={{ background: p.shot.bg }}
+              aria-label={`Open the ${p.title} live site`}
+            >
+              <Image
+                src={p.shot.src}
+                alt={p.shot.alt}
+                fill
+                sizes="(min-width: 1024px) 60vw, 100vw"
+                className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+              <span className="absolute top-4 left-4 flex items-center gap-2 rounded-md border border-line bg-void/80 px-2.5 py-1 font-mono text-[0.68rem] text-bone backdrop-blur">
+                <span className="live-dot size-1.5 rounded-full bg-ok" />
+                live · vercel
+              </span>
+            </a>
+            <div className="flex flex-col p-6 md:p-8">
+              <p className="eyebrow text-dim">{p.kicker}</p>
+              <h3 className="mt-3 text-[clamp(1.8rem,3vw,2.4rem)] leading-[1.05] tracking-[-0.015em]">{p.title}</h3>
+              <p className="mt-4 leading-relaxed text-bone/80">{p.body}</p>
+              <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Stack">
+                {p.stack.map((t) => (
+                  <li key={t}>
+                    <Badge>{t}</Badge>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto flex flex-wrap gap-3 pt-7">
+                <Button asChild>
+                  <a href={p.live} target="_blank" rel="noreferrer">
+                    Open the live site
+                    <ArrowUpRight />
+                  </a>
+                </Button>
+                <Button asChild variant="outline">
+                  <a href={p.source} target="_blank" rel="noreferrer">
+                    <GitHubIcon />
+                    Source
+                  </a>
+                </Button>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        ))}
 
         {/* the public repositories */}
         <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
